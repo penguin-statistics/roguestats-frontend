@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+:root,
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  background: url("/images/background.jpg") no-repeat center center fixed;
+  background-color: #cdd8e2;
+}
+
+@font-face {
+  font-family: "Typing0";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/typing0.woff2") format("woff2");
+}
+
+.font-typing0 {
+  font-family: "Typing0", system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+@font-face {
+  font-family: "Typing1";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/typing1.woff2") format("woff2");
+}
+
+.font-typing1 {
+  font-family: "Typing1", system-ui, Avenir, Helvetica, Arial, sans-serif;
+}

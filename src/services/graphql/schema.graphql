@@ -1,0 +1,127 @@
+### Scalars ###
+
+scalar Map
+scalar Time
+scalar Any
+
+### Directives ###
+
+directive @admin on FIELD_DEFINITION
+directive @private(userIdFieldName: String = "userId") on FIELD_DEFINITION
+
+### Queries ###
+
+type User {
+  id: ID! @goTag(key: "bun", value: "user_id")
+  name: String!
+  email: String @private(userIdFieldName: "id")
+  attributes: Map
+}
+
+type Event {
+  id: ID! @goTag(key: "bun", value: "event_id")
+  researchId: ID! @goTag(key: "bun", value: "research_id")
+  content: Map!
+  userId: ID! @goTag(key: "bun", value: "user_id")
+  createdAt: Time!
+  userAgent: String
+}
+
+type Research {
+  id: ID! @goTag(key: "bun", value: "research_id")
+  name: String!
+  schema: Map!
+  eventsConnection(first: Int = 10, after: ID): EventsConnection
+}
+
+type Topic {
+  id: ID @goTag(key: "bun", value: "topic_id")
+  filterInput: String!
+  resultMappingInput: String!
+}
+
+type CategoryCount {
+  category: Any!
+  count: Int!
+}
+
+type GroupCountResult {
+  results: [CategoryCount!]!
+  total: Int!
+}
+
+input GroupCountInput {
+  researchId: ID!
+  filterInput: String!
+  resultMappingInput: String!
+}
+
+type EventsConnection {
+  edges: [EventsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type EventsEdge {
+  node: Event!
+  cursor: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor: ID!
+  endCursor: ID!
+}
+
+type Query {
+  me: User!
+  research(id: ID!): Research!
+  researches: [Research!]!
+  events(researchId: ID, first: Int = 10, after: ID): EventsConnection!
+  groupCount(input: GroupCountInput!): GroupCountResult!
+}
+
+### Mutations ###
+
+input LoginInput {
+  email: String!
+  password: String!
+  turnstileResponse: String!
+}
+
+input NewEvent {
+  content: Map!
+  researchId: String!
+  userAgent: String
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  attributes: Map
+}
+
+type Mutation {
+  login(input: LoginInput!): User!
+  createEvent(input: NewEvent!): Event!
+
+  createUser(input: CreateUserInput!): User!
+}
+
+### gqlgen Directives ###
+
+directive @goModel(
+  model: String
+  models: [String!]
+) on OBJECT | INPUT_OBJECT | SCALAR | ENUM | INTERFACE | UNION
+
+directive @goField(
+  forceResolver: Boolean
+  name: String
+  omittable: Boolean
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+directive @goTag(
+  key: String!
+  value: String
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
