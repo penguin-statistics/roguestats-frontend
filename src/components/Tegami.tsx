@@ -29,6 +29,10 @@ export const Cover: FC<
       style={{
         backgroundImage: `url(/images/card.png)`,
         backgroundSize: "cover",
+        
+        // Magic number by measuring the actual element size of 1920x1080 screen
+        height: 760,
+        width: 982.3,
       }}
       className={clsx(
         "aspect-[517/400] h-full bg-right flex justify-end transiton-all",
