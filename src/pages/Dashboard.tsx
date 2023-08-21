@@ -1,8 +1,11 @@
-import { Card } from "@mui/material"
+import { Button, Card } from "@mui/material"
 import { graphql, useLazyLoadQuery } from "react-relay"
+import { useNavigate } from "react-router-dom"
+import { setToken } from "../utils/storage"
 import { DashboardQuery } from "./__generated__/DashboardQuery.graphql"
 
 export const Dashboard = () => {
+  const navigate = useNavigate()
   const response = useLazyLoadQuery<DashboardQuery>(
     graphql`
       query DashboardQuery($first: Int!, $after: ID) {
@@ -47,6 +50,16 @@ export const Dashboard = () => {
     <div className="flex flex-col gap-4 p-4">
       <h1 className="text-2xl">Dashboard</h1>
       <Card>Welcome, {response.me.name}!</Card>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          setToken("")
+          navigate("/")
+        }}
+      >
+        Logout
+      </Button>
       <h2 className="text-lg">Researches</h2>
       {response.researches.map(research => (
         <Card className="p-4 shadow-lg" key={research.id}>

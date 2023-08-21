@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from "react"
 
 export const WhiteRootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="p-40 h-full w-full">
+    <div className="p-40 h-full w-full flex justify-center items-center">
       {children}
       <div className="absolute bottom-12 flex items-center font-typing0 gap-2 select-none">
         <img
