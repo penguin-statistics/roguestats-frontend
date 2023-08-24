@@ -2,13 +2,11 @@ name: Build Docker Image (Release)
 
 on:
   push:
-    # trigger on version tag push
-    tags:
-      - "v*"
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   build:
