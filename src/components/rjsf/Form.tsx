@@ -1,6 +1,45 @@
-import { withTheme } from "@rjsf/core"
+import { Tooltip } from "@mui/material"
+import { FormProps, withTheme } from "@rjsf/core"
 import { Theme } from "@rjsf/mui"
+import { customizeValidator } from "@rjsf/validator-ajv8"
+import { localizeChineseErrorMessage } from "./errorFormatter"
 
 // Make modifications to the theme with your own fields and widgets
 
-export const Form = withTheme(Theme)
+const ThemedForm = withTheme({
+  ...Theme,
+  templates: {
+    ...Theme.templates,
+    // Add custom templates here
+    ErrorListTemplate: ({ errors }) => {
+      return (
+        <div className="bg-red-100 p-4 my-2 shadow">
+          <h4 className="font-bold text-lg">有些内容看起来不太对...</h4>
+          <ul className="list-disc pl-4 mt-1">
+            {errors.map((error, i) => (
+              <Tooltip
+                title={
+                  <div className="whitespace-pre-wrap font-mono">
+                    {JSON.stringify(error, null, 2)}
+                  </div>
+                }
+                key={i}
+                placement="bottom-start"
+              >
+                <li className="cursor-help">{error.stack}</li>
+              </Tooltip>
+            ))}
+          </ul>
+        </div>
+      )
+    },
+  },
+})
+
+const validator = customizeValidator({}, localizeChineseErrorMessage)
+
+export function Form(props: Omit<FormProps, "validator" | "liveValidate">) {
+  return (
+    <ThemedForm liveValidate validator={validator} noHtml5Validate {...props} />
+  )
+}

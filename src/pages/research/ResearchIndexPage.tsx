@@ -4,9 +4,11 @@ import clsx from "clsx"
 import { Suspense } from "react"
 import { graphql, useLazyLoadQuery } from "react-relay"
 import { Link, Outlet, useMatch } from "react-router-dom"
+import { EmptyStateCard } from "../../components/Card"
+import { withSuspensible } from "../../utils/suspensible"
 import { ResearchIndexPageQuery } from "./__generated__/ResearchIndexPageQuery.graphql"
 
-export const ResearchIndexPage = () => {
+export const ResearchIndexPage = withSuspensible(() => {
   const matches = useMatch("/research/:id")
   const data = useLazyLoadQuery<ResearchIndexPageQuery>(
     graphql`
@@ -32,11 +34,18 @@ export const ResearchIndexPage = () => {
       <div className="flex items-start gap-4">
         <div className="w-48 flex flex-col gap-2">
           {data.researches.map(research => (
-            <Link to={`/research/${research.id}`} key={research.id}>
+            <Link
+              to={`/research/${research.id}`}
+              key={research.id}
+              className={clsx(
+                matches?.params.id === research.id && "cursor-default",
+              )}
+            >
               <ButtonBase
                 key={research.id}
                 color="transparent"
                 className="shadow-lg w-full"
+                disabled={matches?.params.id === research.id}
               >
                 <Card
                   className={clsx(
@@ -56,11 +65,17 @@ export const ResearchIndexPage = () => {
         </div>
 
         <div className="flex-1">
-          <Suspense fallback={<CircularProgress />}>
+          <Suspense
+            fallback={
+              <EmptyStateCard>
+                <CircularProgress />
+              </EmptyStateCard>
+            }
+          >
             <Outlet />
           </Suspense>
         </div>
       </div>
     </div>
   )
-}
+})

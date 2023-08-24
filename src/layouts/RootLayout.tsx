@@ -1,6 +1,7 @@
 import { AccountCircle, Logout } from "@mui/icons-material"
 import {
   AppBar,
+  CircularProgress,
   Container,
   IconButton,
   ListItemIcon,
@@ -10,11 +11,12 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material"
-import { FC, useState } from "react"
+import { FC, Suspense, useState } from "react"
 import { toast } from "react-hot-toast"
 import { graphql, useLazyLoadQuery } from "react-relay"
 import { Outlet, useNavigate } from "react-router-dom"
 import { useEffectOnce } from "react-use"
+import { Footer } from "../components/Tegami"
 import { getToken, setToken, useToken } from "../utils/storage"
 import { RootLayoutQuery } from "./__generated__/RootLayoutQuery.graphql"
 
@@ -39,23 +41,34 @@ export const RootLayout: FC = () => {
             alt="logo"
             className="h-8 mr-2"
           />
-          <Typography variant="h6" component="div">
+          <Typography variant="h6" component="div" className="select-none">
             RogueStats
+            <span className="font-light">&nbsp;Console</span>
           </Typography>
           <Tooltip
             title="构建版本"
             arrow
             className="bg-slate-800 hover:bg-slate-700 text-white text-xs px-2 py-1 cursor-help"
           >
-            {import.meta.env.VITE_BUILD_GIT_COMMIT || "未知构建"}
+            <div>{import.meta.env.VITE_BUILD_GIT_COMMIT || "未知构建"}</div>
           </Tooltip>
           <div className="flex-1" />
-          {token && <AccountButton />}
+          <Suspense
+            fallback={
+              <CircularProgress color="inherit" size={24} className="mr-3" />
+            }
+          >
+            {token && <AccountButton />}
+          </Suspense>
         </Toolbar>
       </AppBar>
-      
-      <Container maxWidth="lg" className="pt-24">
+
+      <Container maxWidth="lg" className="py-24 h-full">
         <Outlet />
+
+        <div className="w-full flex items-center jcustify-enter py-24">
+          <Footer />
+        </div>
       </Container>
     </>
   )

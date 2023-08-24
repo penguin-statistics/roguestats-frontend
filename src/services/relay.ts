@@ -7,6 +7,8 @@ import {
 } from "relay-runtime"
 import { getToken, setToken } from "../utils/storage"
 
+const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
+
 const fetchRelay: FetchFunction = async (params, variables) => {
   console.debug("Relay request", params, variables)
   const response = await fetch(
@@ -22,7 +24,7 @@ const fetchRelay: FetchFunction = async (params, variables) => {
         variables,
       }),
     },
-  )
+  ).then(resp => delay(3000).then(() => resp))
 
   const newToken = response.headers.get("x-penguin-roguestats-set-token")
   if (newToken) setToken(newToken)

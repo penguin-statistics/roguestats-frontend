@@ -1,5 +1,4 @@
 import { Card } from "@mui/material"
-import validator from "@rjsf/validator-ajv8"
 import { FC } from "react"
 import { graphql, useLazyLoadQuery } from "react-relay"
 import { useParams } from "react-router-dom"
@@ -24,9 +23,9 @@ export const ResearchDetailPage: FC = () => {
   )
 
   return (
-    <Card className="p-4 shadow-lg">
+    <Card className="p-4 shadow-lg" key={data.research.id}>
       <h1 className="text-lg">{data.research.name}</h1>
-      <Form schema={data.research.schema} validator={validator} />
+      <Form schema={data.research.schema} />
     </Card>
   )
 }
