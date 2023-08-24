@@ -37,7 +37,7 @@ jobs:
           version: "v1.0.${{ github.run_number }}"
           use-sentry: true
           sentry-auth-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          sentry-org: ${{ secrets.SENTRY_ORG }}
+          sentry-org: penguin-statistics
           sentry-project: ${{ secrets.SENTRY_PROJECT }}
           use-ghrelease: true
           use-manifestbot: true
