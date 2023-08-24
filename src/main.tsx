@@ -10,7 +10,7 @@ Sentry.init({
   integrations: [
     new Sentry.BrowserTracing({
       // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-      tracePropagationTargets: ["localhost", "https:penguin-stats.io"],
+      tracePropagationTargets: ["localhost", "https://rogue.penguin-stats.io"],
     }),
     new Sentry.Replay(),
   ],

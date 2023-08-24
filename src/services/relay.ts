@@ -9,17 +9,20 @@ import { getToken, setToken } from "../utils/storage"
 
 const fetchRelay: FetchFunction = async (params, variables) => {
   console.debug("Relay request", params, variables)
-  const response = await fetch("http://localhost:3500/graphql", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      ...(getToken() && { authorization: `Bearer ${getToken()}` }),
+  const response = await fetch(
+    (import.meta.env.VITE_API_URL || "") + "/graphql",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        ...(getToken() && { authorization: `Bearer ${getToken()}` }),
+      },
+      body: JSON.stringify({
+        query: params.text,
+        variables,
+      }),
     },
-    body: JSON.stringify({
-      query: params.text,
-      variables,
-    }),
-  })
+  )
 
   const newToken = response.headers.get("x-penguin-roguestats-set-token")
   if (newToken) setToken(newToken)
