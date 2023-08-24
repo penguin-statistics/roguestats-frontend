@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0c18f39f244982e1008b19d84695db72>>
+ * @generated SignedSource<<0b58e34b7341263e2655d132a8506a46>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,8 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 export type RootLayoutQuery$variables = {};
 export type RootLayoutQuery$data = {
   readonly me: {
+    readonly email: string | null;
+    readonly id: string;
     readonly name: string;
   };
 };
@@ -21,33 +23,47 @@ export type RootLayoutQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-};
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "User",
+    "kind": "LinkedField",
+    "name": "me",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "email",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "name",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "RootLayoutQuery",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "me",
-        "plural": false,
-        "selections": [
-          (v0/*: any*/)
-        ],
-        "storageKey": null
-      }
-    ],
+    "selections": (v0/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -56,39 +72,19 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "RootLayoutQuery",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "me",
-        "plural": false,
-        "selections": [
-          (v0/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "3ba54ac9b06bf63b2e33952390c9ae58",
+    "cacheID": "66ed04007ab36d0c80c812f45468fe7c",
     "id": null,
     "metadata": {},
     "name": "RootLayoutQuery",
     "operationKind": "query",
-    "text": "query RootLayoutQuery {\n  me {\n    name\n    id\n  }\n}\n"
+    "text": "query RootLayoutQuery {\n  me {\n    id\n    email\n    name\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3524ad689b421b566f69e9e46c2a451f";
+(node as any).hash = "420728ad5e8bba82f5b18c24f57e06da";
 
 export default node;

@@ -52,7 +52,7 @@ export const LoginPage: FC = () => {
   const handleLogin = () => {
     if (!turnstileResponse) {
       toast.error(
-        "CAPTCHA response has not yet been received, please wait and try again a bit later.",
+        "人机验证仍在进行中，请稍等片刻。如果长时间未响应，请刷新页面重试。",
       )
       return
     }
@@ -66,12 +66,12 @@ export const LoginPage: FC = () => {
         },
       },
       onCompleted: data => {
-        toast.success(`Logged in! Welcome back, ${data.login.name}!`)
+        toast.success(`已登录为 ${data.login.name}`)
         navigate("/dashboard")
       },
       onError: error => {
         console.debug(error)
-        toast.error(`Failed to login: ${error.message}`)
+        toast.error(`登录失败：${error.message}`)
         turnstileRef.current?.reset()
         setTurnstileResponse(undefined)
       },

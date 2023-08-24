@@ -25,8 +25,8 @@ export const Dashboard = () => {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <h1 className="text-2xl font-bold">Welcome, {data.me.name}</h1>
-      <h2 className="text-lg">Researches</h2>
+      <h1 className="text-2xl font-bold">Hi, {data.me.name}</h1>
+      <h2 className="text-lg">正在进行的 RogueStats 课题</h2>
       {data.researches.map(research => (
         <ResearchCard key={research.id} research={research} />
       ))}
