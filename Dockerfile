@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.11 AS builder
+FROM node:lts-alpine AS builder
 WORKDIR /app
 
 ARG VITE_BUILD_GIT_COMMIT
