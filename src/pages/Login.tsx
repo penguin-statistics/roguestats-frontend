@@ -45,7 +45,7 @@ export const LoginPage: FC = () => {
 
   useEffectOnce(() => {
     if (getToken()) {
-      navigate("/dashboard")
+      navigate("/research")
     }
   })
 
@@ -67,7 +67,7 @@ export const LoginPage: FC = () => {
       },
       onCompleted: data => {
         toast.success(`已登录为 ${data.login.name}`)
-        navigate("/dashboard")
+        navigate("/research")
       },
       onError: error => {
         console.debug(error)

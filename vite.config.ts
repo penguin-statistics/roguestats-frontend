@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          core: [
+          "vendor-core": [
             "react",
             "react-dom",
             "react-relay",
@@ -33,6 +33,14 @@ export default defineConfig(({ mode }) => ({
             "relay-runtime",
             "react-hot-toast",
             "@rjsf/core",
+            "@rjsf/mui",
+            "@rjsf/validator-ajv8",
+            "@mui/material",
+            "@mui/icons-material",
+            "@mui/styled-engine",
+            "@sentry/react",
+            "@sentry/browser",
+            "ajv",
           ],
         },
       },

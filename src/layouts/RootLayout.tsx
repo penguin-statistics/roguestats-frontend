@@ -24,7 +24,7 @@ export const RootLayout: FC = () => {
   useEffectOnce(() => {
     const token = getToken()
     if (token) {
-      navigate("/dashboard")
+      navigate("/research")
     } else {
       navigate("/auth/login")
     }
@@ -42,16 +42,19 @@ export const RootLayout: FC = () => {
           <Typography variant="h6" component="div">
             RogueStats
           </Typography>
-          <Tooltip title="构建版本" arrow>
-            <div className="bg-slate-800 text-white text-xs px-2 py-1 cursor-help">
-              {import.meta.env.VITE_BUILD_GIT_COMMIT || "未知构建"}
-            </div>
+          <Tooltip
+            title="构建版本"
+            arrow
+            className="bg-slate-800 hover:bg-slate-700 text-white text-xs px-2 py-1 cursor-help"
+          >
+            {import.meta.env.VITE_BUILD_GIT_COMMIT || "未知构建"}
           </Tooltip>
           <div className="flex-1" />
           {token && <AccountButton />}
         </Toolbar>
       </AppBar>
-      <Container maxWidth="lg" className="pt-16">
+      
+      <Container maxWidth="lg" className="pt-24">
         <Outlet />
       </Container>
     </>
@@ -81,7 +84,7 @@ const AccountButton: FC = () => {
 
   return (
     <>
-      <Tooltip title="Account">
+      <Tooltip title="账户" arrow>
         <IconButton
           size="large"
           aria-controls={open ? "account-menu-" : undefined}
