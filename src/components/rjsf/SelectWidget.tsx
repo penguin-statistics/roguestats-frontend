@@ -93,7 +93,7 @@ export default function SelectWidget<
       if (!inputValue) return enumOptions.map(({ value }) => value)
 
       const results = engine.search(inputValue)
-      results.sort((a, b) => a.score - b.score)
+      results.sort((a, b) => a.score! - b.score!)
       return results.map(({ item }) => item.value)
     }
   }, [enumOptions])
