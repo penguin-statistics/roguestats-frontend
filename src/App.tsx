@@ -24,6 +24,10 @@ function App() {
         <Toaster
           toastOptions={{
             className: "rounded-none bg-white font-bold pl-3 pr-1 py-2",
+            duration: 5e3,
+            error: {
+              duration: 10e3,
+            },
           }}
         />
         <RouterProvider router={router} />

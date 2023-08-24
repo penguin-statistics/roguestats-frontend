@@ -1,5 +1,5 @@
 import { ChevronRight } from "@mui/icons-material"
-import { ButtonBase, Card, CircularProgress } from "@mui/material"
+import { ButtonBase, Card, CircularProgress, Toolbar } from "@mui/material"
 import clsx from "clsx"
 import { Suspense } from "react"
 import { graphql, useLazyLoadQuery } from "react-relay"
@@ -68,6 +68,15 @@ export const ResearchIndexPage = withSuspensible(() => {
           <Suspense
             fallback={
               <EmptyStateCard>
+                <Toolbar className="absolute left-0 right-0 top-0 bg-slate-900 text-white py-4 opacity-10 select-none">
+                  <div className="flex flex-col">
+                    <h4 className="text-sm leading-none mb-1.5">汇报</h4>
+                    <h1 className="text-xl leading-none font-bold">
+                      加载中...
+                    </h1>
+                  </div>
+                </Toolbar>
+
                 <CircularProgress />
               </EmptyStateCard>
             }

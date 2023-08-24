@@ -1,7 +1,8 @@
 import { Tooltip } from "@mui/material"
-import { FormProps, withTheme } from "@rjsf/core"
+import RJSFForm, { FormProps, withTheme } from "@rjsf/core"
 import { Theme } from "@rjsf/mui"
 import { customizeValidator } from "@rjsf/validator-ajv8"
+import { forwardRef } from "react"
 import { localizeChineseErrorMessage } from "./errorFormatter"
 
 // Make modifications to the theme with your own fields and widgets
@@ -38,8 +39,17 @@ const ThemedForm = withTheme({
 
 const validator = customizeValidator({}, localizeChineseErrorMessage)
 
-export function Form(props: Omit<FormProps, "validator" | "liveValidate">) {
+export const Form = forwardRef<
+  RJSFForm,
+  Omit<FormProps, "validator" | "liveValidate">
+>(function Form(props, ref) {
   return (
-    <ThemedForm liveValidate validator={validator} noHtml5Validate {...props} />
+    <ThemedForm
+      ref={ref}
+      liveValidate
+      validator={validator}
+      noHtml5Validate
+      {...props}
+    />
   )
-}
+})
