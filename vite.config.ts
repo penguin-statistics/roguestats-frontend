@@ -18,4 +18,7 @@ export default defineConfig(({ mode }) => ({
       disable: mode !== "production",
     }),
   ],
+  build: {
+    sourcemap: true,
+  },
 }))

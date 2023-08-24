@@ -15,10 +15,11 @@ import { toast } from "react-hot-toast"
 import { graphql, useLazyLoadQuery } from "react-relay"
 import { Outlet, useNavigate } from "react-router-dom"
 import { useEffectOnce } from "react-use"
-import { getToken, setToken } from "../utils/storage"
+import { getToken, setToken, useToken } from "../utils/storage"
 import { RootLayoutQuery } from "./__generated__/RootLayoutQuery.graphql"
 
 export const RootLayout: FC = () => {
+  const [token] = useToken()
   const navigate = useNavigate()
   useEffectOnce(() => {
     const token = getToken()
@@ -47,7 +48,7 @@ export const RootLayout: FC = () => {
             </div>
           </Tooltip>
           <div className="flex-1" />
-          <AccountButton />
+          {token && <AccountButton />}
         </Toolbar>
       </AppBar>
       <Container maxWidth="lg" className="pt-16">

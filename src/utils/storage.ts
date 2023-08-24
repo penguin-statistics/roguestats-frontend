@@ -7,7 +7,9 @@ export const LOCALSTORAGE_KEYS = {
 }
 
 export const useToken = () => {
-  return useLocalStorage(LOCALSTORAGE_KEYS.TOKEN)
+  return useLocalStorage<string>(LOCALSTORAGE_KEYS.TOKEN, undefined, {
+    raw: true,
+  })
 }
 
 export const getToken = () => {
