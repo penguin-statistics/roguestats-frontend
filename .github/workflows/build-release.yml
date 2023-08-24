@@ -26,7 +26,7 @@ jobs:
         id: ghcr-docker
         uses: "penguin-statistics/actions/ghcr-docker@main"
         with:
-          version: "v1.0.{{ github.run_number }}"
+          version: "v1.0.${{ github.run_number }}"
           repository: "penguin-statistics/roguestats-frontend"
           build-args: VITE_BUILD_GIT_COMMIT=${{ steps.git-meta.outputs.minisha }}
 
@@ -34,7 +34,7 @@ jobs:
         id: release-dispatcher
         uses: "penguin-statistics/actions/release-dispatcher@main"
         with:
-          version: "v1.0.{{ github.run_number }}"
+          version: "v1.0.${{ github.run_number }}"
           use-sentry: true
           sentry-auth-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
           sentry-org: ${{ secrets.SENTRY_ORG }}
