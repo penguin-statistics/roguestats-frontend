@@ -4,7 +4,7 @@ on:
   # trigger on any pull requests
   pull_request:
     branches:
-      - "master"
+      - "main"
 
 concurrency:
   group: ${{ github.ref }}
