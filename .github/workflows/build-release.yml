@@ -39,7 +39,7 @@ jobs:
           sentry-auth-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
           sentry-org: penguin-statistics
           sentry-project: ${{ secrets.SENTRY_PROJECT }}
-          use-ghrelease: true
+          use-ghrelease: false
           use-manifestbot: true
           manifestbot-file-path: "applications/roguestats-frontend/values-prod.yaml"
           manifestbot-token: ${{ secrets.PAT_FOR_MANIFESTBOT }}
