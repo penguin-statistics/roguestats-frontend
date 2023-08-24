@@ -27,7 +27,7 @@ jobs:
         with:
           version: ${{ steps.git-meta.outputs.version }}
           repository: "penguin-statistics/roguelike-frontend"
-          build-args: TRUNCATED_GITHUB_SHA=${{ steps.git-meta.outputs.mini-sha }}
+          build-args: VITE_BUILD_GIT_COMMIT=${{ steps.git-meta.outputs.mini-sha }}
 
       - name: "Release: Call Dispatcher"
         id: release-dispatcher

@@ -1,8 +1,8 @@
 FROM node:lts-alpine3.11 AS builder
 WORKDIR /app
 
-ARG TRUNCATED_GITHUB_SHA
-ENV TRUNCATED_GITHUB_SHA $TRUNCATED_GITHUB_SHA
+ARG VITE_BUILD_GIT_COMMIT
+ENV VITE_BUILD_GIT_COMMIT $VITE_BUILD_GIT_COMMIT
 
 ENV PENGUIN_BUILDFROM=docker
 
@@ -14,7 +14,7 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn build:web
+RUN yarn build
 
 # runner
 FROM nginx:stable AS runner

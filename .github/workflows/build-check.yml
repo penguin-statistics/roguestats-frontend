@@ -19,8 +19,8 @@ jobs:
 
       - name: "Docker: Build and Push Image"
         id: ghcr-docker
-        uses: 'penguin-statistics/actions/ghcr-docker@main'
+        uses: "penguin-statistics/actions/ghcr-docker@main"
         with:
-          version: '__check__'
-          repository: 'penguin-statistics/frontend-v2'
+          version: "__check__"
+          repository: "penguin-statistics/roguestats-frontend"
           push: false
