@@ -1,80 +1,57 @@
-import { Button, Card } from "@mui/material"
-import { graphql, useLazyLoadQuery } from "react-relay"
-import { useNavigate } from "react-router-dom"
-import { setToken } from "../utils/storage"
+import { Card } from "@mui/material"
+import validator from "@rjsf/validator-ajv8"
+import { FC } from "react"
+import { graphql, useFragment, useLazyLoadQuery } from "react-relay"
+import { Form } from "../components/rjsf/Form"
 import { DashboardQuery } from "./__generated__/DashboardQuery.graphql"
+import { DashboardResearchFragment$key } from "./__generated__/DashboardResearchFragment.graphql"
 
 export const Dashboard = () => {
-  const navigate = useNavigate()
-  const response = useLazyLoadQuery<DashboardQuery>(
+  const data = useLazyLoadQuery<DashboardQuery>(
     graphql`
-      query DashboardQuery($first: Int!, $after: ID) {
+      query DashboardQuery {
         researches {
           id
-          name
-          eventsConnection(first: $first, after: $after)
-            @connection(key: "Dashboard_eventsConnection") {
-            edges {
-              node {
-                id
-                createdAt
-                researchId
-                userAgent
-                userId
-                content
-              }
-              cursor
-            }
-            pageInfo {
-              startCursor
-              endCursor
-              hasNextPage
-              hasPreviousPage
-            }
-          }
+          ...DashboardResearchFragment
         }
 
         me {
-          id
           name
-          email
         }
       }
     `,
-    {
-      first: 20,
-    },
+    {},
   )
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <h1 className="text-2xl">Dashboard</h1>
-      <Card>Welcome, {response.me.name}!</Card>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          setToken("")
-          navigate("/")
-        }}
-      >
-        Logout
-      </Button>
+      <h1 className="text-2xl font-bold">Welcome, {data.me.name}</h1>
       <h2 className="text-lg">Researches</h2>
-      {response.researches.map(research => (
-        <Card className="p-4 shadow-lg" key={research.id}>
-          <h1 className="text-lg">{research.name}</h1>
-          <ul className="list-disc list-inside">
-            {research.eventsConnection?.edges.map(edge => (
-              <li key={edge.node.id}>
-                {edge.node.createdAt} by {edge.node.userAgent} (
-                {edge.node.userId})
-              </li>
-            ))}
-            {research.eventsConnection?.pageInfo.hasNextPage && <li>...</li>}
-          </ul>
-        </Card>
+      {data.researches.map(research => (
+        <ResearchCard key={research.id} research={research} />
       ))}
     </div>
+  )
+}
+
+const ResearchCard: FC<{
+  research: DashboardResearchFragment$key
+}> = ({ research }) => {
+  const data = useFragment<DashboardResearchFragment$key>(
+    graphql`
+      fragment DashboardResearchFragment on Research {
+        id
+        name
+        schema
+      }
+    `,
+    research,
+  )
+
+  return (
+    <Card className="p-4 shadow-lg">
+      <h1 className="text-lg">{data.name}</h1>
+      <Form schema={data.schema} validator={validator} />
+    </Card>
   )
 }

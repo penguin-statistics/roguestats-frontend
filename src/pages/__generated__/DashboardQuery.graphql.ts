@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2d6e49b1ab37e42c3caa9473923b8d1b>>
+ * @generated SignedSource<<8e0c3f47be3727aa89234f4237255f98>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,38 +9,15 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type DashboardQuery$variables = {
-  after?: string | null;
-  first: number;
-};
+import { FragmentRefs } from "relay-runtime";
+export type DashboardQuery$variables = {};
 export type DashboardQuery$data = {
   readonly me: {
-    readonly email: string | null;
-    readonly id: string;
     readonly name: string;
   };
   readonly researches: ReadonlyArray<{
-    readonly eventsConnection: {
-      readonly edges: ReadonlyArray<{
-        readonly cursor: string;
-        readonly node: {
-          readonly content: any;
-          readonly createdAt: any;
-          readonly id: string;
-          readonly researchId: string;
-          readonly userAgent: string | null;
-          readonly userId: string;
-        };
-      }>;
-      readonly pageInfo: {
-        readonly endCursor: string;
-        readonly hasNextPage: boolean | null;
-        readonly hasPreviousPage: boolean | null;
-        readonly startCursor: string;
-      };
-    } | null;
     readonly id: string;
-    readonly name: string;
+    readonly " $fragmentSpreads": FragmentRefs<"DashboardResearchFragment">;
   }>;
 };
 export type DashboardQuery = {
@@ -50,180 +27,22 @@ export type DashboardQuery = {
 
 const node: ConcreteRequest = (function(){
 var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "after"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "first"
-},
-v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v3 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-},
-v4 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "EventsEdge",
-    "kind": "LinkedField",
-    "name": "edges",
-    "plural": true,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "Event",
-        "kind": "LinkedField",
-        "name": "node",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "createdAt",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "researchId",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "userAgent",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "userId",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "content",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "__typename",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "cursor",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "PageInfo",
-    "kind": "LinkedField",
-    "name": "pageInfo",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "startCursor",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "endCursor",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "hasNextPage",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "hasPreviousPage",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-],
-v5 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "User",
-  "kind": "LinkedField",
-  "name": "me",
-  "plural": false,
-  "selections": [
-    (v2/*: any*/),
-    (v3/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "email",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v6 = [
-  {
-    "kind": "Variable",
-    "name": "after",
-    "variableName": "after"
-  },
-  {
-    "kind": "Variable",
-    "name": "first",
-    "variableName": "first"
-  }
-];
+};
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "DashboardQuery",
@@ -236,32 +55,34 @@ return {
         "name": "researches",
         "plural": true,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
+          (v0/*: any*/),
           {
-            "alias": "eventsConnection",
             "args": null,
-            "concreteType": "EventsConnection",
-            "kind": "LinkedField",
-            "name": "__Dashboard_eventsConnection_connection",
-            "plural": false,
-            "selections": (v4/*: any*/),
-            "storageKey": null
+            "kind": "FragmentSpread",
+            "name": "DashboardResearchFragment"
           }
         ],
         "storageKey": null
       },
-      (v5/*: any*/)
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/)
+        ],
+        "storageKey": null
+      }
     ],
     "type": "Query",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "DashboardQuery",
     "selections": [
@@ -273,53 +94,44 @@ return {
         "name": "researches",
         "plural": true,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
+          (v0/*: any*/),
+          (v1/*: any*/),
           {
             "alias": null,
-            "args": (v6/*: any*/),
-            "concreteType": "EventsConnection",
-            "kind": "LinkedField",
-            "name": "eventsConnection",
-            "plural": false,
-            "selections": (v4/*: any*/),
+            "args": null,
+            "kind": "ScalarField",
+            "name": "schema",
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": (v6/*: any*/),
-            "filters": null,
-            "handle": "connection",
-            "key": "Dashboard_eventsConnection",
-            "kind": "LinkedHandle",
-            "name": "eventsConnection"
           }
         ],
         "storageKey": null
       },
-      (v5/*: any*/)
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          (v0/*: any*/)
+        ],
+        "storageKey": null
+      }
     ]
   },
   "params": {
-    "cacheID": "fca120415cb567f628544992157b9b6f",
+    "cacheID": "0dff52d6daad79fde2a6077065d60999",
     "id": null,
-    "metadata": {
-      "connection": [
-        {
-          "count": "first",
-          "cursor": "after",
-          "direction": "forward",
-          "path": null
-        }
-      ]
-    },
+    "metadata": {},
     "name": "DashboardQuery",
     "operationKind": "query",
-    "text": "query DashboardQuery(\n  $first: Int!\n  $after: ID\n) {\n  researches {\n    id\n    name\n    eventsConnection(first: $first, after: $after) {\n      edges {\n        node {\n          id\n          createdAt\n          researchId\n          userAgent\n          userId\n          content\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        startCursor\n        endCursor\n        hasNextPage\n        hasPreviousPage\n      }\n    }\n  }\n  me {\n    id\n    name\n    email\n  }\n}\n"
+    "text": "query DashboardQuery {\n  researches {\n    id\n    ...DashboardResearchFragment\n  }\n  me {\n    name\n    id\n  }\n}\n\nfragment DashboardResearchFragment on Research {\n  id\n  name\n  schema\n}\n"
   }
 };
 })();
 
-(node as any).hash = "cd5631c5b4a2f5b4f41629354899f356";
+(node as any).hash = "bde3c7355d8d050c150271ea83b2994c";
 
 export default node;

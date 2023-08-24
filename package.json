@@ -7,7 +7,9 @@
     "dev": "concurrently \"npm:dev:*\"",
     "dev:vite": "yarn vite",
     "dev:relay": "yarn relay-compiler --watch",
-    "build": "tsc && vite build",
+    "build": "yarn build:relay && yarn build:vite",
+    "build:vite": "tsc && vite build",
+    "build:relay": "yarn relay-compiler",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
