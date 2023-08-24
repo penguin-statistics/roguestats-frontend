@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
     }),
     sentryVitePlugin({
       org: "penguin-statistics",
-      project: "roguelike-frontend",
+      project: "roguestats-frontend",
       disable: mode !== "production",
     }),
   ],
