@@ -61,7 +61,7 @@ export const ResearchDetailPage: FC = () => {
 
   return (
     <Card className="shadow-lg relative" key={data.research.id}>
-      <Toolbar className="bg-slate-900 text-white py-4">
+      <Toolbar className="bg-slate-900 text-white py-4 shadow select-none flex items-center">
         <div className="flex flex-col">
           <h4 className="text-sm leading-none mb-1.5">汇报</h4>
           <h1 className="text-xl leading-none font-bold">
@@ -79,7 +79,7 @@ export const ResearchDetailPage: FC = () => {
       </CardContent>
 
       {isInFlight && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="absolute inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center">
           <CircularProgress />
         </div>
       )}

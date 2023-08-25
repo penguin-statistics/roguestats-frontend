@@ -5,8 +5,17 @@ import { Theme } from "@rjsf/mui"
 import { customizeValidator } from "@rjsf/validator-ajv8"
 import { merge } from "lodash-es"
 import { forwardRef } from "react"
-import SelectWidget from "./SelectWidget"
 import { localizeChineseErrorMessage } from "./errorFormatter"
+import AddButton from "./themes/AddButton"
+import {
+  MoveDownButton,
+  MoveUpButton,
+  RemoveButton,
+} from "./themes/ArrayButtons"
+import ArrayFieldItemTemplate from "./themes/ArrayFieldItemTemplate"
+import ArrayFieldTemplate from "./themes/ArrayFieldTemplate"
+import SelectWidget from "./themes/SelectWidget"
+import TitleFieldTemplate from "./themes/TitleFieldTemplate"
 
 // Make modifications to the theme with your own fields and widgets
 
@@ -16,6 +25,7 @@ const ThemedForm = withTheme(
       SelectWidget,
     },
     templates: {
+      TitleFieldTemplate,
       ErrorListTemplate: ({ errors }) => {
         return (
           <div className="bg-red-100 p-4 my-2 shadow">
@@ -38,7 +48,13 @@ const ThemedForm = withTheme(
           </div>
         )
       },
+      ArrayFieldTemplate,
+      ArrayFieldItemTemplate,
       ButtonTemplates: {
+        AddButton,
+        RemoveButton,
+        MoveUpButton,
+        MoveDownButton,
         SubmitButton: ({ uiSchema }) => {
           return (
             <Button
@@ -71,6 +87,11 @@ export const Form = forwardRef<
       validator={validator}
       noHtml5Validate
       showErrorList="bottom"
+      experimental_defaultFormStateBehavior={{
+        arrayMinItems: {
+          populate: "requiredOnly",
+        },
+      }}
       uiSchema={{ restChoices: { "ui:widget": "CheckboxesWidget" } }}
       {...props}
     />

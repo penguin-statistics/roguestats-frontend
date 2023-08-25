@@ -10,7 +10,7 @@ import { FC, useRef, useState } from "react"
 import { toast } from "react-hot-toast"
 import { useMutation } from "react-relay"
 import { useNavigate } from "react-router-dom"
-import { useEffectOnce } from "react-use"
+import { useEffectOnce, useUnmount } from "react-use"
 import { graphql } from "relay-runtime"
 import { Cover, WhiteRootLayout } from "../components/Tegami"
 import { getToken } from "../utils/storage"
@@ -47,6 +47,10 @@ export const LoginPage: FC = () => {
     if (getToken()) {
       navigate("/research")
     }
+  })
+
+  useUnmount(() => {
+    turnstileRef.current?.remove()
   })
 
   const handleLogin = () => {

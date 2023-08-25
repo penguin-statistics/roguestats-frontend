@@ -50,7 +50,8 @@ export const ResearchIndexPage = withSuspensible(() => {
                 <Card
                   className={clsx(
                     "h-full w-full p-4 text-left flex transition",
-                    matches?.params.id === research.id && "bg-black text-white",
+                    matches?.params.id === research.id &&
+                      "bg-slate-900 text-white",
                   )}
                 >
                   <div>{research.name}</div>
