@@ -14,8 +14,12 @@ export const ResearchIndexPage = withSuspensible(() => {
     graphql`
       query ResearchIndexPageQuery {
         researches {
-          id
-          name
+          edges {
+            node {
+              id
+              name
+            }
+          }
         }
 
         me {
@@ -28,12 +32,12 @@ export const ResearchIndexPage = withSuspensible(() => {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">Hi, {data.me.name}</h1>
+      <h1 className="text-2xl font-bold">Hi, {data.me?.name}</h1>
       <h2 className="text-lg">正在进行的 RogueStats 课题</h2>
 
       <div className="flex items-start gap-4">
         <div className="w-48 flex flex-col gap-2">
-          {data.researches.map(research => (
+          {data.researches.edges.map(({ node: research }) => (
             <Link
               to={`/research/${research.id}`}
               key={research.id}

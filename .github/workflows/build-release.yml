@@ -38,7 +38,7 @@ jobs:
           push: true
           tags: ghcr.io/penguin-statistics/roguestats-frontend:v1.0.${{ github.run_number }}
           build-args: |
-            VERSION=v1.0.${{ github.run_number }}
+            VITE_BUILD_VERSION=v1.0.${{ github.run_number }}
             VITE_BUILD_GIT_COMMIT=${{ steps.git-meta.outputs.minisha }}
 
       - name: "Release: Call Dispatcher"

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3e0363ea4a0cf96608393be14d14d2fe>>
+ * @generated SignedSource<<5cf4b54222699e6733e06cdd79262672>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,13 +9,13 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type NewEvent = {
+export type CreateEventInput = {
   content: any;
-  researchId: string;
-  userAgent?: string | null;
+  researchID: string;
+  userAgent: string;
 };
 export type ResearchDetailPageMutation$variables = {
-  input: NewEvent;
+  input: CreateEventInput;
 };
 export type ResearchDetailPageMutation$data = {
   readonly createEvent: {
@@ -79,16 +79,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "c35690561c01de9e6b5ec59862b29670",
+    "cacheID": "c88b346c4e136135b833c965b58edd7a",
     "id": null,
     "metadata": {},
     "name": "ResearchDetailPageMutation",
     "operationKind": "mutation",
-    "text": "mutation ResearchDetailPageMutation(\n  $input: NewEvent!\n) {\n  createEvent(input: $input) {\n    id\n  }\n}\n"
+    "text": "mutation ResearchDetailPageMutation(\n  $input: CreateEventInput!\n) {\n  createEvent(input: $input) {\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "90c2d827dc2c86422a6490b0cf930e80";
+(node as any).hash = "cc67b9a226aff8c3aefa35154175c5a5";
 
 export default node;

@@ -29,13 +29,20 @@ export const ResearchDetailPage: FC = () => {
 
   const [commit, isInFlight] = useMutation<ResearchDetailPageMutation>(
     graphql`
-      mutation ResearchDetailPageMutation($input: NewEvent!) {
+      mutation ResearchDetailPageMutation($input: CreateEventInput!) {
         createEvent(input: $input) {
           id
         }
       }
     `,
   )
+  if (!data.research) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <CircularProgress />
+      </div>
+    )
+  }
 
   const handleSubmit = (data: IChangeEvent) => {
     const activeElement = document.activeElement as HTMLElement | undefined
@@ -44,13 +51,20 @@ export const ResearchDetailPage: FC = () => {
     commit({
       variables: {
         input: {
-          researchId: id,
+          researchID: id,
           content: data.formData,
           userAgent: "roguestats-frontend/" + (envBuildCommit || "unknown"),
         },
       },
       onCompleted: data => {
-        toast.success(`成功提交事件 ${data.createEvent.id}`)
+        toast.success(
+          <span className="flex flex-col items-start">
+            已成功提交事件
+            <span className="font-mono text-sm font-normal">
+              {data.createEvent.id}
+            </span>
+          </span>,
+        )
         formRef.current?.reset()
       },
       onError(error) {

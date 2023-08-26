@@ -49,7 +49,7 @@ export const RootLayout: FC = () => {
           <Tooltip
             title="构建版本"
             arrow
-            className="bg-slate-800 hover:bg-slate-700 text-white text-xs px-2 py-1 cursor-help"
+            className="bg-slate-800 hover:bg-slate-700 text-white text-xs px-2 py-1 cursor-help font-mono"
           >
             <div>{envBuildCommit || "未知构建"}</div>
           </Tooltip>
@@ -122,9 +122,9 @@ const AccountButton: FC = () => {
         }}
       >
         <div className="flex flex-col gap-2 px-4 mb-2 mt-1">
-          <div className="text-lg font-bold">{data.me.name}</div>
+          <div className="text-lg font-bold">{data.me?.name}</div>
           <div className="text-xs text-slate-500">
-            您的用户 ID: {data.me.id}
+            您的用户 ID: <span className="font-mono">{data.me?.id}</span>
           </div>
           <div className="text-xs text-slate-500">
             若需要更改账户信息，烦请联系开发组

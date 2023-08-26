@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e42e240fe44552fc7974d87eebb0f3c2>>
+ * @generated SignedSource<<846209265522e93efc662269ef44d50b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,11 +13,15 @@ export type ResearchIndexPageQuery$variables = {};
 export type ResearchIndexPageQuery$data = {
   readonly me: {
     readonly name: string;
+  } | null;
+  readonly researches: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly name: string;
+      };
+    }>;
   };
-  readonly researches: ReadonlyArray<{
-    readonly id: string;
-    readonly name: string;
-  }>;
 };
 export type ResearchIndexPageQuery = {
   response: ResearchIndexPageQuery$data;
@@ -42,13 +46,35 @@ v1 = {
 v2 = {
   "alias": null,
   "args": null,
-  "concreteType": "Research",
+  "concreteType": "ResearchConnection",
   "kind": "LinkedField",
   "name": "researches",
-  "plural": true,
+  "plural": false,
   "selections": [
-    (v0/*: any*/),
-    (v1/*: any*/)
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ResearchEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Research",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/),
+            (v1/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
   ],
   "storageKey": null
 };
@@ -99,16 +125,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "307391406e65240128dd3e73628fb8e4",
+    "cacheID": "c5a297c8b4b1af7f65ca39c34c745303",
     "id": null,
     "metadata": {},
     "name": "ResearchIndexPageQuery",
     "operationKind": "query",
-    "text": "query ResearchIndexPageQuery {\n  researches {\n    id\n    name\n  }\n  me {\n    name\n    id\n  }\n}\n"
+    "text": "query ResearchIndexPageQuery {\n  researches {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n  me {\n    name\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "cb1d3ec39a408aec69dccd0558cc4ee0";
+(node as any).hash = "ae5f3351b427f3995e386a3eeba11b35";
 
 export default node;

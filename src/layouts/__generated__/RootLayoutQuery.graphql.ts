@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0b58e34b7341263e2655d132a8506a46>>
+ * @generated SignedSource<<a47053816d37130bf27d40e4031beccf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type RootLayoutQuery$data = {
     readonly email: string | null;
     readonly id: string;
     readonly name: string;
-  };
+  } | null;
 };
 export type RootLayoutQuery = {
   response: RootLayoutQuery$data;

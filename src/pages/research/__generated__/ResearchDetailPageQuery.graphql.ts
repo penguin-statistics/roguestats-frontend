@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<85bfda51d349bdd9c1101ef52c2557a6>>
+ * @generated SignedSource<<d847ee73f3ba8189a8ffaca180aabb25>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type ResearchDetailPageQuery$data = {
     readonly id: string;
     readonly name: string;
     readonly schema: any;
-  };
+  } | null;
 };
 export type ResearchDetailPageQuery = {
   response: ResearchDetailPageQuery$data;
