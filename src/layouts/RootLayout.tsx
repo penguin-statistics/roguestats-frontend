@@ -1,4 +1,4 @@
-import { AccountCircle, Logout } from "@mui/icons-material"
+import { AccountCircle, Logout, Password } from "@mui/icons-material"
 import {
   AppBar,
   CircularProgress,
@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material"
 import { FC, Suspense, useState } from "react"
+import { ErrorBoundary } from "react-error-boundary"
 import { toast } from "react-hot-toast"
 import { graphql, useLazyLoadQuery } from "react-relay"
 import { Outlet, useNavigate } from "react-router-dom"
@@ -54,20 +55,22 @@ export const RootLayout: FC = () => {
             <div>{envBuildCommit || "未知构建"}</div>
           </Tooltip>
           <div className="flex-1" />
-          <Suspense
-            fallback={
-              <CircularProgress color="inherit" size={24} className="mr-3" />
-            }
-          >
-            {token && <AccountButton />}
-          </Suspense>
+          <ErrorBoundary FallbackComponent={() => <></>}>
+            <Suspense
+              fallback={
+                <CircularProgress color="inherit" size={24} className="mr-3" />
+              }
+            >
+              {token && <AccountButton />}
+            </Suspense>
+          </ErrorBoundary>
         </Toolbar>
       </AppBar>
 
       <Container maxWidth="lg" className="py-24 h-full">
         <Outlet />
 
-        <div className="w-full flex items-center jcustify-enter py-24">
+        <div className="w-full flex items-center justify-center py-24">
           <Footer />
         </div>
       </Container>
@@ -127,9 +130,22 @@ const AccountButton: FC = () => {
             您的用户 ID: <span className="font-mono">{data.me?.id}</span>
           </div>
           <div className="text-xs text-slate-500">
-            若需要更改账户信息，烦请联系开发组
+            若需要更改账户其他信息，烦请联系开发组
           </div>
         </div>
+
+        <MenuItem
+          onClick={() => {
+            setAnchorEl(null)
+            navigate("/auth/request-password-reset")
+          }}
+        >
+          <ListItemIcon>
+            <Password />
+          </ListItemIcon>
+          <div className="flex-1">修改密码</div>
+        </MenuItem>
+
         <MenuItem
           onClick={() => {
             setToken("")

@@ -6,6 +6,7 @@ import { graphql, useLazyLoadQuery, useMutation } from "react-relay"
 import { useParams } from "react-router-dom"
 import { Form } from "../../components/rjsf/Form"
 import { envBuildCommit } from "../../utils/env"
+import { formatError } from "../../utils/friendlyError"
 import { ResearchDetailPageMutation } from "./__generated__/ResearchDetailPageMutation.graphql"
 import { ResearchDetailPageQuery } from "./__generated__/ResearchDetailPageQuery.graphql"
 
@@ -68,7 +69,7 @@ export const ResearchDetailPage: FC = () => {
         formRef.current?.reset()
       },
       onError(error) {
-        toast.error("提交失败：" + error.message)
+        toast.error(`提交失败：${formatError(error)}`)
       },
     })
   }

@@ -12,8 +12,9 @@ import { useMutation } from "react-relay"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { useEffectOnce, useUnmount } from "react-use"
 import { graphql } from "relay-runtime"
-import { Cover, WhiteRootLayout } from "../components/Tegami"
-import { getToken } from "../utils/storage"
+import { Cover } from "../../components/Tegami"
+import { formatError } from "../../utils/friendlyError"
+import { getToken } from "../../utils/storage"
 import { LoginMutation } from "./__generated__/LoginMutation.graphql"
 
 const StyledTextField = styled(TextField)<TextFieldProps>`
@@ -90,7 +91,7 @@ export const LoginPage: FC = () => {
       },
       onError: error => {
         console.debug(error)
-        toast.error(`登录失败：${error.message}`)
+        toast.error(`登录失败：${formatError(error)}`)
         turnstileRef.current?.reset()
         setTurnstileResponse(undefined)
       },
@@ -98,7 +99,7 @@ export const LoginPage: FC = () => {
   }
 
   return (
-    <WhiteRootLayout>
+    <>
       <Cover underOverlay={loading}>
         <h4 className="text-xl font-typing1 mb-2">RogueStats</h4>
         <h1 className="text-4xl font-bold font-typing0 mb-4">
@@ -134,6 +135,7 @@ export const LoginPage: FC = () => {
             ref={turnstileRef}
             siteKey="0x4AAAAAAAI_htC0Nx9f7D66"
             onSuccess={token => setTurnstileResponse(token)}
+            onError={() => toast.error("人机验证失败，请刷新页面并重试")}
             options={{
               action: "login",
               theme: "dark",
@@ -163,6 +165,6 @@ export const LoginPage: FC = () => {
           <CircularProgress color="inherit" />
         </div>
       )}
-    </WhiteRootLayout>
+    </>
   )
 }

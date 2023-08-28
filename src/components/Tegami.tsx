@@ -23,7 +23,7 @@ export const Footer: FC<{ className?: string }> = ({ className }) => {
 
 export const WhiteRootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="p-40 h-full w-full flex justify-center items-center">
+    <div className="p-20 h-full w-full flex justify-center items-center">
       {children}
       <Footer className="absolute bottom-12" />
     </div>
