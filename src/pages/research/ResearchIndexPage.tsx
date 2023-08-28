@@ -37,36 +37,37 @@ export const ResearchIndexPage = withSuspensible(() => {
 
       <div className="flex items-start gap-4">
         <div className="w-48 flex flex-col gap-2">
-          {data.researches.edges.map(({ node: research }) => (
-            <Link
-              to={`/research/${research.id}`}
-              key={research.id}
-              className={clsx(
-                matches?.params.id === research.id && "cursor-default",
-              )}
-            >
-              <ButtonBase
+          {data.researches.edges.map(({ node: research }) => {
+            const selected = matches?.params.id === research.id
+            return (
+              <Link
+                to={`/research/${research.id}`}
                 key={research.id}
-                color="transparent"
-                className="shadow-lg w-full"
-                disabled={matches?.params.id === research.id}
+                className={clsx(selected && "cursor-default")}
               >
-                <Card
+                <ButtonBase
+                  key={research.id}
+                  color="transparent"
                   className={clsx(
-                    "h-full w-full p-4 text-left flex transition",
-                    matches?.params.id === research.id &&
-                      "bg-slate-900 text-white",
+                    "w-full",
+                    selected ? "shadow-2xl" : "shadow-lg",
                   )}
+                  disabled={selected}
                 >
-                  <div>{research.name}</div>
+                  <Card
+                    className={clsx(
+                      "h-full w-full p-4 text-left flex transition",
+                      selected && "bg-slate-900 text-white font-bold",
+                    )}
+                  >
+                    <div>{research.name}</div>
 
-                  {matches?.params.id === research.id && (
-                    <ChevronRight className="ml-auto" />
-                  )}
-                </Card>
-              </ButtonBase>
-            </Link>
-          ))}
+                    {!selected && <ChevronRight className="ml-auto" />}
+                  </Card>
+                </ButtonBase>
+              </Link>
+            )
+          })}
         </div>
 
         <div className="flex-1">

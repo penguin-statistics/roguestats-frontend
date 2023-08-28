@@ -12,7 +12,7 @@ Sentry.init({
       // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
       tracePropagationTargets: ["localhost", "https://rogue.penguin-stats.io"],
     }),
-    new Sentry.Replay(),
+    // new Sentry.Replay(),
   ],
   // Performance Monitoring
   tracesSampleRate: 0.01, // Capture 100% of the transactions, reduce in production!

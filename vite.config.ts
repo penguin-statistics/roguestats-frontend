@@ -41,7 +41,6 @@ export default defineConfig(({ mode }) => ({
             "@sentry/react",
             "@sentry/browser",
             "ajv",
-            "lodash-es",
           ],
         },
       },

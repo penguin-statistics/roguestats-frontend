@@ -3,7 +3,7 @@ import { Button, Tooltip } from "@mui/material"
 import RJSFForm, { FormProps, ThemeProps, withTheme } from "@rjsf/core"
 import { Theme } from "@rjsf/mui"
 import { customizeValidator } from "@rjsf/validator-ajv8"
-import { merge } from "lodash-es"
+import deepMerge from "deepmerge"
 import { forwardRef } from "react"
 import { localizeChineseErrorMessage } from "./errorFormatter"
 import AddButton from "./themes/AddButton"
@@ -20,7 +20,7 @@ import TitleFieldTemplate from "./themes/TitleFieldTemplate"
 // Make modifications to the theme with your own fields and widgets
 
 const ThemedForm = withTheme(
-  merge<ThemeProps, ThemeProps>(Theme, {
+  deepMerge<ThemeProps, ThemeProps>(Theme, {
     widgets: {
       SelectWidget,
     },
