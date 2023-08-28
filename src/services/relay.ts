@@ -24,6 +24,15 @@ const fetchRelay: FetchFunction = async (params, variables) => {
     },
   )
 
+  if (response.status === 401) {
+    setToken("")
+    const redirect = encodeURIComponent(
+      window.location.pathname + window.location.search,
+    )
+    window.location.href =
+      "/auth/login?redirect=" + redirect + "&reason=TOKEN_EXPIRED"
+  }
+
   const newToken = response.headers.get("x-penguin-roguestats-set-token")
   if (newToken) setToken(newToken)
 

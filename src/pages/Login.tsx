@@ -6,10 +6,10 @@ import {
   styled,
 } from "@mui/material"
 import clsx from "clsx"
-import { FC, useRef, useState } from "react"
+import { FC, useCallback, useRef, useState } from "react"
 import { toast } from "react-hot-toast"
 import { useMutation } from "react-relay"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { useEffectOnce, useUnmount } from "react-use"
 import { graphql } from "relay-runtime"
 import { Cover, WhiteRootLayout } from "../components/Tegami"
@@ -30,6 +30,7 @@ export const LoginPage: FC = () => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [turnstileResponse, setTurnstileResponse] = useState<string>()
+  const [searchParams] = useSearchParams()
   const [commitMutation, loading] = useMutation<LoginMutation>(graphql`
     mutation LoginMutation($input: LoginInput!) {
       login(input: $input) {
@@ -43,9 +44,23 @@ export const LoginPage: FC = () => {
   const turnstileRef = useRef<TurnstileInstance>()
   const navigate = useNavigate()
 
+  const navigateToRedirect = useCallback(() => {
+    const redirect = searchParams.get("redirect")
+    if (redirect) {
+      navigate(redirect)
+    } else {
+      navigate("/research")
+    }
+  }, [navigate, searchParams])
+
   useEffectOnce(() => {
     if (getToken()) {
-      navigate("/research")
+      navigateToRedirect()
+    } else if (searchParams.get("reason")) {
+      const reason = searchParams.get("reason")
+      if (reason === "TOKEN_EXPIRED") {
+        toast.error("登录已过期，请重新登录")
+      }
     }
   })
 
