@@ -6,11 +6,19 @@ import { graphql, useLazyLoadQuery, useMutation } from "react-relay"
 import { useParams } from "react-router-dom"
 import { Form } from "../../components/rjsf/Form"
 import { envBuildCommit } from "../../utils/env"
+import { formatExplicitUndefined } from "../../utils/explicitUndefined"
 import { formatError } from "../../utils/friendlyError"
 import { ResearchDetailPageMutation } from "./__generated__/ResearchDetailPageMutation.graphql"
 import { ResearchDetailPageQuery } from "./__generated__/ResearchDetailPageQuery.graphql"
 
+export interface FormContextValue {
+  explicitlyUndefinedFields: Set<string>
+}
+
 export const ResearchDetailPage: FC = () => {
+  const formContextRef = useRef<FormContextValue>({
+    explicitlyUndefinedFields: new Set<string>(),
+  })
   const formRef = useRef<RJSFForm>(null)
   const { id } = useParams<{ id: string }>()
   if (!id) throw new Error("id is required")
@@ -49,11 +57,18 @@ export const ResearchDetailPage: FC = () => {
     const activeElement = document.activeElement as HTMLElement | undefined
     activeElement?.blur()
 
+    const content = formatExplicitUndefined(
+      data.formData,
+      Array.from(formContextRef.current.explicitlyUndefinedFields.keys()),
+    )
+
+    console.debug("Submitting", content)
+
     commit({
       variables: {
         input: {
           researchID: id,
-          content: data.formData,
+          content,
           userAgent: "roguestats-frontend/" + (envBuildCommit || "unknown"),
         },
       },
@@ -90,6 +105,7 @@ export const ResearchDetailPage: FC = () => {
           schema={data.research.schema}
           onSubmit={handleSubmit}
           readonly={isInFlight}
+          formContext={formContextRef}
         />
       </CardContent>
 

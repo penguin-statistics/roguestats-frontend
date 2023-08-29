@@ -81,12 +81,10 @@ export default function SelectWidget<
   const filterOptions = useMemo(() => {
     if (!enumOptions) return () => []
 
-    console.log("enumOptions", enumOptions)
-
     const engine = new Fuse(enumOptions, {
       includeScore: true,
       threshold: 0.4,
-      keys: ["schema.x-alias", "label"],
+      keys: ["schema.alias", "label"],
     })
 
     return (_: any, { inputValue }: FilterOptionsState<string>) => {

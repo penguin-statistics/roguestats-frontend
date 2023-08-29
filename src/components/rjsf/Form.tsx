@@ -12,8 +12,8 @@ import {
   MoveUpButton,
   RemoveButton,
 } from "./themes/ArrayButtons"
+import ArrayFieldExplicitNullableTemplate from "./themes/ArrayFieldExplicitNullableTemplate"
 import ArrayFieldItemTemplate from "./themes/ArrayFieldItemTemplate"
-import ArrayFieldTemplate from "./themes/ArrayFieldTemplate"
 import SelectWidget from "./themes/SelectWidget"
 import TitleFieldTemplate from "./themes/TitleFieldTemplate"
 
@@ -48,8 +48,9 @@ const ThemedForm = withTheme(
           </div>
         )
       },
-      ArrayFieldTemplate,
+      ArrayFieldTemplate: ArrayFieldExplicitNullableTemplate,
       ArrayFieldItemTemplate,
+      // ,
       ButtonTemplates: {
         AddButton,
         RemoveButton,
@@ -89,10 +90,9 @@ export const Form = forwardRef<
       showErrorList="bottom"
       experimental_defaultFormStateBehavior={{
         arrayMinItems: {
-          populate: "requiredOnly",
+          populate: "all",
         },
       }}
-      uiSchema={{ restChoices: { "ui:widget": "CheckboxesWidget" } }}
       {...props}
     />
   )
