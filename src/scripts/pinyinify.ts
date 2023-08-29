@@ -2,16 +2,18 @@ import { readFileSync, readdirSync, writeFileSync } from "fs"
 import { pinyin } from "pinyin"
 
 function pinyinify(name: string) {
-  // we are using pinyin2, the return value of pinyin() is an array of arrays
-  const fullPinyin = pinyin(name, {
-    heteronym: true,
-    style: pinyin.STYLE_NORMAL,
-  })
-  const partialPinyin = pinyin(name, {
-    heteronym: true,
-    style: pinyin.STYLE_FIRST_LETTER,
-  })
-  return [fullPinyin.join(""), partialPinyin.join("")]
+  return [
+    pinyin(name, {
+      compact: true,
+      heteronym: true,
+      style: pinyin.STYLE_NORMAL,
+    }),
+    pinyin(name, {
+      compact: true,
+      heteronym: true,
+      style: pinyin.STYLE_FIRST_LETTER,
+    }),
+  ].flatMap(py => py.map(el => el.join("")))
 }
 
 function addAliasToSchema(json: any) {
