@@ -14,6 +14,7 @@ import {
 } from "./themes/ArrayButtons"
 import ArrayFieldExplicitNullableTemplate from "./themes/ArrayFieldExplicitNullableTemplate"
 import ArrayFieldItemTemplate from "./themes/ArrayFieldItemTemplate"
+import BaseInputTemplate from "./themes/BaseInputTemplate"
 import SelectWidget from "./themes/SelectWidget"
 import TitleFieldTemplate from "./themes/TitleFieldTemplate"
 
@@ -50,7 +51,7 @@ const ThemedForm = withTheme(
       },
       ArrayFieldTemplate: ArrayFieldExplicitNullableTemplate,
       ArrayFieldItemTemplate,
-      // ,
+      BaseInputTemplate,
       ButtonTemplates: {
         AddButton,
         RemoveButton,

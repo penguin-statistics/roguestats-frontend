@@ -1,6 +1,7 @@
 import { Button } from "@mui/material"
 import { FC } from "react"
 import { ErrorBoundary, ErrorBoundaryProps } from "react-error-boundary"
+import { formatError } from "../utils/friendlyError"
 import { Cover } from "./Tegami"
 
 export const ErrorBoundaryFallback: ErrorBoundaryProps["FallbackComponent"] = ({
@@ -9,10 +10,10 @@ export const ErrorBoundaryFallback: ErrorBoundaryProps["FallbackComponent"] = ({
 }) => {
   return (
     <Cover>
-      <h4 className="text-xl font-typing1 mb-2">Encounter</h4>
+      <h4 className="text-xl font-typing1 mb-2">Encountered</h4>
       <h1 className="text-4xl font-bold font-typing0">Unexpected Error</h1>
 
-      <p className="text-lg mt-4 mb-8">{error?.message}</p>
+      <p className="text-lg mt-4 mb-8 font-mono">{formatError(error)}</p>
 
       <Button variant="contained" onClick={resetErrorBoundary}>
         Retry

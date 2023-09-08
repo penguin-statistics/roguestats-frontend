@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a47053816d37130bf27d40e4031beccf>>
+ * @generated SignedSource<<c689eca0385b586b015ada2a9de2fab4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,7 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 export type RootLayoutQuery$variables = {};
 export type RootLayoutQuery$data = {
   readonly me: {
-    readonly email: string | null;
+    readonly email: string;
     readonly id: string;
     readonly name: string;
   } | null;

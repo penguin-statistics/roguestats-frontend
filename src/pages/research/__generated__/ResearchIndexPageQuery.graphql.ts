@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<846209265522e93efc662269ef44d50b>>
+ * @generated SignedSource<<95b20fee10748707a6dc49b9c5fcf5f3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,8 +20,8 @@ export type ResearchIndexPageQuery$data = {
         readonly id: string;
         readonly name: string;
       };
-    }>;
-  };
+    } | null>;
+  } | null;
 };
 export type ResearchIndexPageQuery = {
   response: ResearchIndexPageQuery$data;
@@ -46,35 +46,13 @@ v1 = {
 v2 = {
   "alias": null,
   "args": null,
-  "concreteType": "ResearchConnection",
+  "concreteType": "Research",
   "kind": "LinkedField",
-  "name": "researches",
+  "name": "node",
   "plural": false,
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ResearchEdge",
-      "kind": "LinkedField",
-      "name": "edges",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Research",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
-          "selections": [
-            (v0/*: any*/),
-            (v1/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
+    (v0/*: any*/),
+    (v1/*: any*/)
   ],
   "storageKey": null
 };
@@ -85,7 +63,39 @@ return {
     "metadata": null,
     "name": "ResearchIndexPageQuery",
     "selections": [
-      (v2/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ResearchConnection",
+        "kind": "LinkedField",
+        "name": "researches",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "RequiredField",
+            "field": {
+              "alias": null,
+              "args": null,
+              "concreteType": "ResearchEdge",
+              "kind": "LinkedField",
+              "name": "edges",
+              "plural": true,
+              "selections": [
+                {
+                  "kind": "RequiredField",
+                  "field": (v2/*: any*/),
+                  "action": "NONE",
+                  "path": "researches.edges.node"
+                }
+              ],
+              "storageKey": null
+            },
+            "action": "NONE",
+            "path": "researches.edges"
+          }
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -108,7 +118,29 @@ return {
     "kind": "Operation",
     "name": "ResearchIndexPageQuery",
     "selections": [
-      (v2/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ResearchConnection",
+        "kind": "LinkedField",
+        "name": "researches",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ResearchEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -135,6 +167,6 @@ return {
 };
 })();
 
-(node as any).hash = "ae5f3351b427f3995e386a3eeba11b35";
+(node as any).hash = "6efb243f83732802c6ca8a9507c1e0ff";
 
 export default node;

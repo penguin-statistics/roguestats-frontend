@@ -1,5 +1,10 @@
-import { Check } from "@mui/icons-material"
-import { Autocomplete, FilterOptionsState, MenuItem } from "@mui/material"
+import { Check, Checklist } from "@mui/icons-material"
+import {
+  Autocomplete,
+  FilterOptionsState,
+  InputAdornment,
+  MenuItem,
+} from "@mui/material"
 import TextField, { TextFieldProps } from "@mui/material/TextField"
 import {
   EnumOptionsType,
@@ -12,7 +17,7 @@ import {
 } from "@rjsf/utils"
 import Fuse from "fuse.js"
 import { useMemo } from "react"
-
+import MdiCheckboxMarkedCircleOutline from "~icons/mdi/checkbox-marked-circle-outline"
 /** The `SelectWidget` is a widget for rendering dropdowns.
  *  It is typically used with string properties constrained with enum options.
  *
@@ -117,9 +122,7 @@ export default function SelectWidget<
           <div className="flex items-center gap-2 w-full">
             <span>{enumOptionsValueToOptionMap.get(option)?.label}</span>
 
-            {multiple && selected && (
-              <Check className="text-slate-700" fontSize="small" />
-            )}
+            {selected && <Check className="text-slate-700" fontSize="small" />}
 
             <span className="flex-1" />
 
@@ -140,6 +143,21 @@ export default function SelectWidget<
           error={rawErrors.length > 0}
           InputLabelProps={{
             ...textFieldProps.InputLabelProps,
+          }}
+          InputProps={{
+            ...params.InputProps,
+            startAdornment: (
+              <InputAdornment position="start" className="pl-1">
+                {multiple ? (
+                  <Checklist />
+                ) : (
+                  <MdiCheckboxMarkedCircleOutline className="w-6 h-6" />
+                )}
+              </InputAdornment>
+            ),
+            classes: {
+              input: "!pl-0",
+            },
           }}
           aria-describedby={ariaDescribedByIds<T>(id)}
         />

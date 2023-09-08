@@ -16,8 +16,8 @@ export const ResearchIndexPage = withErrorBoundary(
       graphql`
         query ResearchIndexPageQuery {
           researches {
-            edges {
-              node {
+            edges @required(action: NONE) {
+              node @required(action: NONE) {
                 id
                 name
               }

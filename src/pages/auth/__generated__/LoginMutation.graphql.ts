@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<941238a7a8bf888d1c4b897537edec91>>
+ * @generated SignedSource<<d6c4c4356fb3bbb55150dad3b78c1c58>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,7 +20,7 @@ export type LoginMutation$variables = {
 export type LoginMutation$data = {
   readonly login: {
     readonly attributes: any | null;
-    readonly email: string | null;
+    readonly email: string;
     readonly id: string;
     readonly name: string;
   };

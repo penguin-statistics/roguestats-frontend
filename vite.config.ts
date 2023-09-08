@@ -1,5 +1,6 @@
 import { sentryVitePlugin } from "@sentry/vite-plugin"
 import react from "@vitejs/plugin-react"
+import unpluginIcons from "unplugin-icons/vite"
 import { defineConfig, splitVendorChunkPlugin } from "vite"
 import relay from "vite-plugin-relay"
 
@@ -18,6 +19,11 @@ export default defineConfig(({ mode }) => ({
       disable: mode !== "production",
     }),
     splitVendorChunkPlugin(),
+    unpluginIcons({
+      autoInstall: true,
+      compiler: "jsx",
+      jsx: "react",
+    }),
   ],
   build: {
     sourcemap: true,

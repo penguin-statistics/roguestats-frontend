@@ -5,6 +5,7 @@ import { NotFoundPage } from "./pages/404"
 import { LoginPage } from "./pages/auth/Login"
 import { RequestPasswordResetPage } from "./pages/auth/RequestPasswordReset"
 import { ResetPasswordPage } from "./pages/auth/ResetPassword"
+import { DiscoverPage } from "./pages/discover/DiscoverPage"
 import { ResearchDetailEmptyPage } from "./pages/research/ResearchDetailEmptyPage"
 import { ResearchDetailPage } from "./pages/research/ResearchDetailPage"
 import { ResearchIndexPage } from "./pages/research/ResearchIndexPage"
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
             element: <NotFoundPage />,
           },
         ],
+      },
+      {
+        path: "/discover",
+        element: <DiscoverPage />,
       },
     ],
   },

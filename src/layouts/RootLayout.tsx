@@ -11,11 +11,12 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material"
+import clsx from "clsx"
 import { FC, Suspense, useState } from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import { toast } from "react-hot-toast"
 import { graphql, useLazyLoadQuery } from "react-relay"
-import { Outlet, useNavigate } from "react-router-dom"
+import { Link, Outlet, useMatches, useNavigate } from "react-router-dom"
 import { useEffectOnce } from "react-use"
 import { Footer } from "../components/Tegami"
 import { envBuildCommit } from "../utils/env"
@@ -37,44 +38,87 @@ export const RootLayout: FC = () => {
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar className="flex items-center gap-2">
-          <img
-            src="https://penguin.upyun.galvincdn.com/logos/penguin_stats_logo.png"
-            alt="logo"
-            className="h-8 mr-2"
-          />
-          <Typography variant="h6" component="div" className="select-none">
-            RogueStats
-            <span className="font-light">&nbsp;Console</span>
-          </Typography>
-          <Tooltip
-            title="构建版本"
-            arrow
-            className="bg-slate-800 hover:bg-slate-700 text-white text-xs px-2 py-1 cursor-help font-mono"
-          >
-            <div>{envBuildCommit || "未知构建"}</div>
-          </Tooltip>
-          <div className="flex-1" />
-          <ErrorBoundary FallbackComponent={() => <></>}>
-            <Suspense
-              fallback={
-                <CircularProgress color="inherit" size={24} className="mr-3" />
-              }
+        <Toolbar className="flex flex-col justify-around py-2 h-24">
+          <div className="flex items-center gap-2 w-full">
+            <img
+              src="https://penguin.upyun.galvincdn.com/logos/penguin_stats_logo.png"
+              alt="logo"
+              className="h-8 mr-2"
+            />
+            <Typography variant="h6" component="div" className="select-none">
+              RogueStats
+              <span className="font-light">&nbsp;Console</span>
+            </Typography>
+            <Tooltip
+              title="构建版本"
+              arrow
+              className="bg-slate-800 hover:bg-slate-700 text-white text-xs px-2 py-1 cursor-help font-mono"
             >
-              {token && <AccountButton />}
-            </Suspense>
-          </ErrorBoundary>
+              <div>{envBuildCommit || "未知构建"}</div>
+            </Tooltip>
+            <div className="flex-1" />
+            <ErrorBoundary FallbackComponent={() => <></>}>
+              <Suspense
+                fallback={
+                  <CircularProgress
+                    color="inherit"
+                    size={24}
+                    className="mr-3"
+                  />
+                }
+              >
+                {token && <AccountButton />}
+              </Suspense>
+            </ErrorBoundary>
+          </div>
+
+          <NavigationBar />
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="lg" className="py-24 h-full">
+      <Container maxWidth="lg" className="pt-[7.5rem] pb-24 h-full">
         <Outlet />
 
-        <div className="w-full flex items-center justify-center py-24">
+        <div className="w-full flex items-center justify-center py-[4rem]">
           <Footer />
         </div>
       </Container>
     </>
+  )
+}
+
+const navigatableRoutes = [
+  {
+    path: "/research",
+    label: "提交数据",
+  },
+  {
+    path: "/discover",
+    label: "数据查询",
+  },
+]
+
+const NavigationBar: FC = () => {
+  const matches = useMatches()
+  return (
+    <div className="flex items-center justify-start gap-2 w-full">
+      {navigatableRoutes.map(({ path, label }) => (
+        <Link
+          key={path}
+          to={path}
+          className={clsx(
+            "px-2 py-1 transition rounded",
+            matches.some(match => match.pathname === path)
+              ? "bg-slate-800 text-white"
+              : "text-slate-500 hover:bg-slate-800 hover:text-white active:bg-slate-900",
+          )}
+        >
+          <Typography variant="body1" component="div">
+            {label}
+          </Typography>
+        </Link>
+      ))}
+    </div>
   )
 }
 
@@ -103,7 +147,7 @@ const AccountButton: FC = () => {
     <>
       <Tooltip title="账户" arrow>
         <IconButton
-          size="large"
+          size="medium"
           aria-controls={open ? "account-menu-" : undefined}
           aria-haspopup="true"
           aria-label="account of current user"

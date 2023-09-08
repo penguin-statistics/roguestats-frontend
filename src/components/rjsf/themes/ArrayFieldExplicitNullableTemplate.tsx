@@ -11,14 +11,62 @@ import {
   getTemplate,
   getUiOptions,
 } from "@rjsf/utils"
-import { MutableRefObject, useEffect, useMemo, useState } from "react"
+import {
+  MutableRefObject,
+  ReactElement,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
+import MdiCheckboxBlankCircleOutline from "~icons/mdi/checkbox-blank-circle-outline"
+import MdiCloseCircleOutline from "~icons/mdi/close-circle-outline"
+import MdiNumeric0 from "~icons/mdi/numeric-0"
+import MdiNumeric1 from "~icons/mdi/numeric-1"
+import MdiNumeric2 from "~icons/mdi/numeric-2"
+import MdiNumeric3 from "~icons/mdi/numeric-3"
+import MdiNumeric4 from "~icons/mdi/numeric-4"
+import MdiNumeric5 from "~icons/mdi/numeric-5"
+import MdiNumeric6 from "~icons/mdi/numeric-6"
+import MdiNumeric7 from "~icons/mdi/numeric-7"
+import MdiNumeric8 from "~icons/mdi/numeric-8"
+import MdiNumeric9 from "~icons/mdi/numeric-9"
+import MdiNumeric9Plus from "~icons/mdi/numeric-9-plus"
 import { FormContextValue } from "../../../pages/research/ResearchDetailPage"
 import ArrayFieldExplicitNullableItemTemplate from "./ArrayFieldExplicitNullableItemTemplate"
-
 type PossibleChoice = `reporting_${number}` | "not_reporting"
 
 interface SchemaExtensionNullableArray {
   options: { label: string; value: PossibleChoice }[]
+}
+
+const ICON_CLASSNAME = "h-6 w-6 opacity-60"
+const ICON_MAP: Record<
+  PossibleChoice | "reporting_9plus" | "_default",
+  ReactElement
+> = {
+  not_reporting: <MdiCloseCircleOutline className={ICON_CLASSNAME} />,
+  reporting_0: <MdiNumeric0 className={ICON_CLASSNAME} />,
+  reporting_1: <MdiNumeric1 className={ICON_CLASSNAME} />,
+  reporting_2: <MdiNumeric2 className={ICON_CLASSNAME} />,
+  reporting_3: <MdiNumeric3 className={ICON_CLASSNAME} />,
+  reporting_4: <MdiNumeric4 className={ICON_CLASSNAME} />,
+  reporting_5: <MdiNumeric5 className={ICON_CLASSNAME} />,
+  reporting_6: <MdiNumeric6 className={ICON_CLASSNAME} />,
+  reporting_7: <MdiNumeric7 className={ICON_CLASSNAME} />,
+  reporting_8: <MdiNumeric8 className={ICON_CLASSNAME} />,
+  reporting_9: <MdiNumeric9 className={ICON_CLASSNAME} />,
+  reporting_9plus: <MdiNumeric9Plus className={ICON_CLASSNAME} />,
+  _default: <MdiCheckboxBlankCircleOutline className={ICON_CLASSNAME} />,
+}
+
+const getOptionIcon = (option: PossibleChoice) => {
+  if (option === "not_reporting") return ICON_MAP.not_reporting
+  if (option.startsWith("reporting_")) {
+    const num = Number(option.split("_")[1])
+    if (num >= 9) return ICON_MAP.reporting_9plus
+    return ICON_MAP[`reporting_${num}` as PossibleChoice]
+  }
+  return ICON_MAP._default
 }
 
 /** The `ArrayFieldTemplate` component is the template used to render all items in an array.
@@ -189,6 +237,8 @@ export default function ArrayFieldExplicitNullableTemplate<
             {options.map(({ label, value }) => (
               <MenuItem value={value} className="font-mono" key={value}>
                 <div className="flex items-center gap-2 w-full">
+                  <span>{getOptionIcon(value)}</span>
+
                   <span>{label}</span>
 
                   <span className="flex-1" />
