@@ -1,47 +1,80 @@
-import { Paper, TextareaAutosize } from "@mui/material"
-import { FC, Suspense, useState } from "react"
+import { Button, CircularProgress, Paper } from "@mui/material"
+import { FC, Suspense, useEffect, useState } from "react"
+import { useForm, useWatch } from "react-hook-form"
+
 import {
   DiscoverQuerier,
   QueryInput,
 } from "../../components/discover/DiscoverQuerier"
+import { DiscoverQueryEditorContext } from "../../components/discover/DiscoverQueryEditorContext"
+import { DiscoverQueryEditorFilter } from "../../components/discover/DiscoverQueryEditorFilter"
+import { DiscoverQueryEditorRemapper } from "../../components/discover/DiscoverQueryEditorRemapper"
+import { DiscoverQueryEditorResearchSelect } from "../../components/discover/DiscoverQueryEditorResearchSelect"
+import { DiscoverQueryEditorStep } from "../../components/discover/DiscoverQueryEditorStep"
 
 export const DiscoverPage: FC = () => {
   const [query, setQuery] = useState<QueryInput | null>(null)
+  const [refresh, setRefresh] = useState(0)
+
+  useEffect(() => {
+    setRefresh(refresh => refresh + 1)
+  }, [query])
 
   return (
-    <div className="h-full w-full flex flex-col gap-4">
-      <DiscoverQueryEditor onChange={setQuery} />
+    <div className="min-h-full w-full flex flex-col gap-4">
+      <DiscoverQueryEditor onSubmit={setQuery} />
 
       <Suspense fallback={<div>Loading...</div>}>
-        {query && <DiscoverQuerier input={query} />}
+        {query && <DiscoverQuerier input={query} key={refresh} />}
       </Suspense>
     </div>
   )
 }
 
 const DiscoverQueryEditor: FC<{
-  onChange: (query: QueryInput) => void
-}> = ({ onChange }) => {
-  const [error, setError] = useState<string | null>(null)
+  onSubmit: (query: QueryInput) => void
+}> = ({ onSubmit }) => {
+  const { control, handleSubmit } = useForm<QueryInput>()
+  const index0Completed = useWatch({ control, name: "researchId" })
+  const debugWatchedFormState = useWatch({ control })
 
   return (
-    <>
-      {error && <Paper className="text-red-500 p-4">{error}</Paper>}
-      <TextareaAutosize
-        className="h-full w-full min-h-[10rem] p-4"
-        onChange={e => {
-          try {
-            onChange(JSON.parse(e.target.value) as QueryInput)
-            setError(null)
-          } catch (e) {
-            const err = e as Error
-            setError(err.message ?? "Unknown error")
-          }
-        }}
-        minRows={3}
-        maxRows={10}
-        placeholder="Query"
-      />
-    </>
+    <DiscoverQueryEditorContext>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Paper className="p-4 flex flex-col gap-4">
+          <code>
+            <pre className="bg-slate-100 p-4">
+              {JSON.stringify(debugWatchedFormState, null, 4)}
+            </pre>
+          </code>
+
+          <DiscoverQueryEditorStep index={0} title="选择查询课题">
+            <Suspense fallback={<CircularProgress />}>
+              <DiscoverQueryEditorResearchSelect control={control} />
+            </Suspense>
+          </DiscoverQueryEditorStep>
+
+          <DiscoverQueryEditorStep
+            index={1}
+            title="过滤数据条目"
+            disabled={!index0Completed}
+          >
+            <DiscoverQueryEditorFilter control={control} />
+          </DiscoverQueryEditorStep>
+
+          <DiscoverQueryEditorStep
+            index={2}
+            title="重映射表达式"
+            disabled={!index0Completed}
+          >
+            <DiscoverQueryEditorRemapper control={control} />
+          </DiscoverQueryEditorStep>
+
+          <Button type="submit" variant="contained" size="large">
+            查询
+          </Button>
+        </Paper>
+      </form>
+    </DiscoverQueryEditorContext>
   )
 }
