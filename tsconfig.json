@@ -24,5 +24,6 @@
     "types": ["unplugin-icons/types/react"]
   },
   "include": ["src"],
+  "exclude": ["src/scripts/pinyinify.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

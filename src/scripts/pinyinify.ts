@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, writeFileSync } from "fs"
+import { readFileSync, readdirSync, writeFileSync } from "node:fs"
 import { pinyin } from "pinyin"
 
 function pinyinify(name: string) {
