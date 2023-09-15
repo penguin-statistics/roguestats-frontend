@@ -7,6 +7,7 @@ import { Link, Outlet, useMatch } from "react-router-dom"
 import { EmptyStateCard } from "../../components/Card"
 import { withErrorBoundary } from "../../components/ErrorBoundary"
 import { withSuspensible } from "../../components/Suspensible"
+import { nodesFromEdges } from "../../utils/connection"
 import { ResearchIndexPageQuery } from "./__generated__/ResearchIndexPageQuery.graphql"
 
 export const ResearchIndexPage = withErrorBoundary(
@@ -15,9 +16,9 @@ export const ResearchIndexPage = withErrorBoundary(
     const data = useLazyLoadQuery<ResearchIndexPageQuery>(
       graphql`
         query ResearchIndexPageQuery {
-          researches {
-            edges @required(action: NONE) {
-              node @required(action: NONE) {
+          researches @required(action: THROW) {
+            edges @required(action: THROW) {
+              node @required(action: THROW) {
                 id
                 name
               }
@@ -32,6 +33,8 @@ export const ResearchIndexPage = withErrorBoundary(
       {},
     )
 
+    const nodes = nodesFromEdges(data.researches.edges)
+
     return (
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl font-bold">Hi, {data.me?.name}</h1>
@@ -39,7 +42,7 @@ export const ResearchIndexPage = withErrorBoundary(
 
         <div className="flex items-start gap-4">
           <div className="w-48 flex flex-col gap-2">
-            {data.researches.edges.map(({ node: research }) => {
+            {nodes.map(research => {
               const selected = matches?.params.id === research.id
               return (
                 <Link
