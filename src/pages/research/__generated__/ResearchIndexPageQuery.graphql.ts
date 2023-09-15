@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<95b20fee10748707a6dc49b9c5fcf5f3>>
+ * @generated SignedSource<<5761c6359b1702ea4c76c5e1c715211a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,7 @@ export type ResearchIndexPageQuery$data = {
         readonly name: string;
       };
     } | null>;
-  } | null;
+  };
 };
 export type ResearchIndexPageQuery = {
   response: ResearchIndexPageQuery$data;
@@ -64,37 +64,42 @@ return {
     "name": "ResearchIndexPageQuery",
     "selections": [
       {
-        "alias": null,
-        "args": null,
-        "concreteType": "ResearchConnection",
-        "kind": "LinkedField",
-        "name": "researches",
-        "plural": false,
-        "selections": [
-          {
-            "kind": "RequiredField",
-            "field": {
-              "alias": null,
-              "args": null,
-              "concreteType": "ResearchEdge",
-              "kind": "LinkedField",
-              "name": "edges",
-              "plural": true,
-              "selections": [
-                {
-                  "kind": "RequiredField",
-                  "field": (v2/*: any*/),
-                  "action": "NONE",
-                  "path": "researches.edges.node"
-                }
-              ],
-              "storageKey": null
-            },
-            "action": "NONE",
-            "path": "researches.edges"
-          }
-        ],
-        "storageKey": null
+        "kind": "RequiredField",
+        "field": {
+          "alias": null,
+          "args": null,
+          "concreteType": "ResearchConnection",
+          "kind": "LinkedField",
+          "name": "researches",
+          "plural": false,
+          "selections": [
+            {
+              "kind": "RequiredField",
+              "field": {
+                "alias": null,
+                "args": null,
+                "concreteType": "ResearchEdge",
+                "kind": "LinkedField",
+                "name": "edges",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "RequiredField",
+                    "field": (v2/*: any*/),
+                    "action": "THROW",
+                    "path": "researches.edges.node"
+                  }
+                ],
+                "storageKey": null
+              },
+              "action": "THROW",
+              "path": "researches.edges"
+            }
+          ],
+          "storageKey": null
+        },
+        "action": "THROW",
+        "path": "researches"
       },
       {
         "alias": null,
@@ -167,6 +172,6 @@ return {
 };
 })();
 
-(node as any).hash = "6efb243f83732802c6ca8a9507c1e0ff";
+(node as any).hash = "4082059da8e2972ed58acd01b9512aa7";
 
 export default node;
