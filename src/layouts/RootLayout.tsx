@@ -16,7 +16,13 @@ import { FC, Suspense, useState } from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import { toast } from "react-hot-toast"
 import { graphql, useLazyLoadQuery } from "react-relay"
-import { Link, Outlet, useMatches, useNavigate } from "react-router-dom"
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useMatches,
+  useNavigate,
+} from "react-router-dom"
 import { useEffectOnce } from "react-use"
 import { Footer } from "../components/Tegami"
 import { envBuildCommit } from "../utils/env"
@@ -26,11 +32,12 @@ import { RootLayoutQuery } from "./__generated__/RootLayoutQuery.graphql"
 export const RootLayout: FC = () => {
   const [token] = useToken()
   const navigate = useNavigate()
+  const location = useLocation()
   useEffectOnce(() => {
     const token = getToken()
-    if (token) {
+    if (token && location.pathname === "/auth/login") {
       navigate("/research")
-    } else {
+    } else if (!token) {
       navigate("/auth/login")
     }
   })
