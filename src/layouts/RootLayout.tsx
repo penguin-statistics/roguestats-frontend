@@ -11,18 +11,11 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material"
-import clsx from "clsx"
 import { FC, Suspense, useState } from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import { toast } from "react-hot-toast"
 import { graphql, useLazyLoadQuery } from "react-relay"
-import {
-  Link,
-  Outlet,
-  useLocation,
-  useMatches,
-  useNavigate,
-} from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useEffectOnce } from "react-use"
 import { Footer } from "../components/Tegami"
 import { envBuildCommit } from "../utils/env"
@@ -91,42 +84,6 @@ export const RootLayout: FC = () => {
         </div>
       </Container>
     </>
-  )
-}
-
-const navigatableRoutes = [
-  {
-    path: "/research",
-    label: "提交数据",
-  },
-  {
-    path: "/discover",
-    label: "数据查询",
-  },
-]
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const NavigationBar: FC = () => {
-  const matches = useMatches()
-  return (
-    <div className="flex items-center justify-start gap-2 w-full">
-      {navigatableRoutes.map(({ path, label }) => (
-        <Link
-          key={path}
-          to={path}
-          className={clsx(
-            "px-2 py-1 transition rounded",
-            matches.some(match => match.pathname === path)
-              ? "bg-slate-800 text-white"
-              : "text-slate-500 hover:bg-slate-800 hover:text-white active:bg-slate-900",
-          )}
-        >
-          <Typography variant="body1" component="div">
-            {label}
-          </Typography>
-        </Link>
-      ))}
-    </div>
   )
 }
 
