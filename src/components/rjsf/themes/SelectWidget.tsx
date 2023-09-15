@@ -4,6 +4,8 @@ import {
   FilterOptionsState,
   InputAdornment,
   MenuItem,
+  Paper,
+  PaperProps,
 } from "@mui/material"
 import TextField, { TextFieldProps } from "@mui/material/TextField"
 import {
@@ -16,8 +18,15 @@ import {
   labelValue,
 } from "@rjsf/utils"
 import Fuse from "fuse.js"
-import { useMemo } from "react"
+import { FC, useMemo } from "react"
 import MdiCheckboxMarkedCircleOutline from "~icons/mdi/checkbox-marked-circle-outline"
+
+const ShadowPaper: FC<PaperProps> = ({ children, ...props }) => (
+  <Paper elevation={12} {...props}>
+    {children}
+  </Paper>
+)
+
 /** The `SelectWidget` is a widget for rendering dropdowns.
  *  It is typically used with string properties constrained with enum options.
  *
@@ -132,6 +141,8 @@ export default function SelectWidget<
           </div>
         </MenuItem>
       )}
+      openOnFocus
+      PaperComponent={ShadowPaper}
       renderInput={params => (
         <TextField
           {...params}

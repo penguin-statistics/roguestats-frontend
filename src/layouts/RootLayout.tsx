@@ -45,7 +45,7 @@ export const RootLayout: FC = () => {
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar className="flex flex-col justify-around py-2 h-24">
+        <Toolbar className="flex flex-col justify-around py-2 h-16">
           <div className="flex items-center gap-2 w-full">
             <img
               src="https://penguin.upyun.galvincdn.com/logos/penguin_stats_logo.png"
@@ -79,11 +79,11 @@ export const RootLayout: FC = () => {
             </ErrorBoundary>
           </div>
 
-          <NavigationBar />
+          {/* <NavigationBar /> */}
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="lg" className="pt-[7.5rem] pb-24 h-full">
+      <Container maxWidth="lg" className="pt-[5.5rem] pb-24 h-full">
         <Outlet />
 
         <div className="w-full flex items-center justify-center py-[4rem]">
@@ -105,6 +105,7 @@ const navigatableRoutes = [
   },
 ]
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const NavigationBar: FC = () => {
   const matches = useMatches()
   return (
