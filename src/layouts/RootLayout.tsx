@@ -28,7 +28,10 @@ export const RootLayout: FC = () => {
   const location = useLocation()
   useEffectOnce(() => {
     const token = getToken()
-    if (token && location.pathname === "/auth/login") {
+    if (
+      token &&
+      (location.pathname === "/" || location.pathname === "/auth/login")
+    ) {
       navigate("/research")
     } else if (!token) {
       navigate("/auth/login")
