@@ -1,6 +1,6 @@
 import { Card, CardContent, CircularProgress, Toolbar } from "@mui/material"
 import RJSFForm, { IChangeEvent } from "@rjsf/core"
-import { FC, useRef } from "react"
+import { FC, useEffect, useRef } from "react"
 import { toast } from "react-hot-toast"
 import { graphql, useLazyLoadQuery, useMutation } from "react-relay"
 import { useParams } from "react-router-dom"
@@ -22,6 +22,20 @@ export const ResearchDetailPage: FC = () => {
   const formRef = useRef<RJSFForm>(null)
   const { id } = useParams<{ id: string }>()
   if (!id) throw new Error("id is required")
+
+  useEffect(() => {
+    const el = formRef.current?.formElement?.current as HTMLDivElement
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault()
+      }
+    }
+
+    el.addEventListener("keydown", handler, { passive: false, capture: true })
+    return () => {
+      el.removeEventListener("keydown", handler)
+    }
+  }, [formRef.current?.formElement])
 
   const data = useLazyLoadQuery<ResearchDetailPageQuery>(
     graphql`

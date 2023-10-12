@@ -99,7 +99,12 @@ export default function BaseInputTemplate<
         onBlur={_onBlur}
         onFocus={_onFocus}
         onWheel={e => {
-          e.preventDefault()
+          const target = e.target as HTMLElement
+          // Prevent the input value change
+          target.blur()
+
+          // Prevent the page/container scrolling
+          e.stopPropagation()
         }}
         InputProps={{
           startAdornment: (
