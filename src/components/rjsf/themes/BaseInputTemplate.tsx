@@ -98,6 +98,9 @@ export default function BaseInputTemplate<
         onChange={onChangeOverride || _onChange}
         onBlur={_onBlur}
         onFocus={_onFocus}
+        onWheel={e => {
+          e.preventDefault()
+        }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
